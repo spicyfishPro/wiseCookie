@@ -1,36 +1,63 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; // 使用 Link 来实现客户端路由，避免页面刷新
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Navbar.css';
 
 function Navbar() {
-  // 内联样式
-  const navStyle = {
-    backgroundColor: '#2c3e50', // 深蓝灰色
-    padding: '1rem 2rem',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '20px',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
-  const linkStyle = {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1.1rem',
-    fontWeight: '500'
-  };
-
-  const titleStyle = {
-    ...linkStyle,
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    marginRight: 'auto' // 将标题推到最左边
+  const isActive = (path) => {
+    return location.pathname === path;
   };
 
   return (
-    <nav style={navStyle}>
-      <Link to="/" style={titleStyle}>ML 预测平台</Link>
-      <Link to="/predict" style={linkStyle}>模型预测</Link>
-      <Link to="/table" style={linkStyle}>交互表格</Link>
+    <nav className="navbar">
+      <div className="navbar-container">
+        {/* Logo/Brand */}
+        <Link to="/" className="navbar-brand">
+          <span className="brand-icon">🍪</span>
+          <span className="brand-text">wiseCookie</span>
+        </Link>
+
+        {/* Hamburger Menu */}
+        <div className="hamburger" onClick={toggleMenu}>
+          <span className={`line ${isOpen ? 'open' : ''}`}></span>
+          <span className={`line ${isOpen ? 'open' : ''}`}></span>
+          <span className={`line ${isOpen ? 'open' : ''}`}></span>
+        </div>
+
+        {/* Navigation Links */}
+        <div className={`nav-links ${isOpen ? 'active' : ''}`}>
+          <Link
+            to="/"
+            className={`nav-link ${isActive('/') ? 'active' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            <span className="link-icon">🏠</span>
+            首页
+          </Link>
+          <Link
+            to="/predict"
+            className={`nav-link ${isActive('/predict') ? 'active' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            <span className="link-icon">🤖</span>
+            模型预测
+          </Link>
+          <Link
+            to="/table"
+            className={`nav-link ${isActive('/table') ? 'active' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            <span className="link-icon">📊</span>
+            数据分析
+          </Link>
+        </div>
+      </div>
     </nav>
   );
 }

@@ -1,14 +1,14 @@
 import React from 'react';
-import PredictionForm from '../components/PredictionForm'; // 导入我们之前创建的组件
+import PredictionForm from '../components/PredictionForm';
+import './PredictPage.css';
 
 function PredictPage() {
   return (
-    <div>
-      <h1>机器学习模型预测</h1>
-      <p>
-        请在下方输入饼干模型的输入变量。
-      </p>
-      <hr style={{ margin: '20px 0' }} />
+    <div className="predict-page">
+      <div className="predict-header">
+        <h1>🤖 智能预测系统</h1>
+        <p>输入饼干特性参数，获取精准预测结果</p>
+      </div>
       <PredictionForm />
     </div>
   );
