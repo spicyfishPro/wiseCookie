@@ -1,0 +1,206 @@
+{
+  "project": {
+    "name": "wiseCookie",
+    "description": "智能Cookie管理工具 - 基于机器学习的饼干性质预测与数据分析平台",
+    "version": "1.0.0",
+    "lastScanned": "2025-11-11T15:30:03+0800",
+    "repository": null
+  },
+  "modules": [
+    {
+      "name": "backend",
+      "path": "backend/",
+      "language": "Python",
+      "type": "service",
+      "description": "FastAPI 机器学习模型推理 API 服务",
+      "entryPoints": [
+        "backend/main.py"
+      ],
+      "keyFiles": [
+        "backend/main.py",
+        "backend/model_loader.py",
+        "backend/requirements.txt",
+        "backend/models/ensemble_model.joblib",
+        "backend/models/data_processor.joblib"
+      ],
+      "apis": [
+        {
+          "path": "/",
+          "method": "GET",
+          "description": "健康检查"
+        },
+        {
+          "path": "/api/v1/features",
+          "method": "GET",
+          "description": "获取模型期望的输入特征列表"
+        },
+        {
+          "path": "/api/v1/predict",
+          "method": "POST",
+          "description": "提交特征数据进行预测"
+        }
+      ],
+      "dependencies": {
+        "runtime": [
+          "fastapi",
+          "uvicorn",
+          "pandas",
+          "scikit-learn",
+          "joblib",
+          "pydantic",
+          "numpy"
+        ]
+      },
+      "tests": {
+        "hasTests": false,
+        "framework": null,
+        "coverage": null
+      },
+      "documentation": "backend/CLAUDE.md"
+    },
+    {
+      "name": "frontend",
+      "path": "frontend/",
+      "language": "JavaScript (React)",
+      "type": "webapp",
+      "description": "React + Vite 用户界面和数据可视化",
+      "entryPoints": [
+        "frontend/src/main.jsx"
+      ],
+      "keyFiles": [
+        "frontend/src/main.jsx",
+        "frontend/src/App.jsx",
+        "frontend/src/pages/HomePage.jsx",
+        "frontend/src/pages/PredictPage.jsx",
+        "frontend/src/pages/TablePage.jsx",
+        "frontend/src/components/Navbar.jsx",
+        "frontend/src/components/PredictionForm.jsx",
+        "frontend/src/components/InteractiveTable.jsx",
+        "frontend/package.json",
+        "frontend/vite.config.js",
+        "frontend/index.html",
+        "frontend/public/my_data.csv"
+      ],
+      "routes": [
+        {
+          "path": "/",
+          "component": "HomePage",
+          "description": "项目首页和导航"
+        },
+        {
+          "path": "/predict",
+          "component": "PredictPage",
+          "description": "模型预测表单"
+        },
+        {
+          "path": "/table",
+          "component": "TablePage",
+          "description": "交互式数据表格"
+        }
+      ],
+      "dependencies": {
+        "runtime": [
+          "react@19.1.1",
+          "react-dom@19.1.1",
+          "react-router-dom@7.9.4",
+          "@tanstack/react-table@8.21.3",
+          "axios@1.12.2",
+          "papaparse@5.5.3"
+        ],
+        "dev": [
+          "vite@7.1.7",
+          "@vitejs/plugin-react@5.0.4",
+          "eslint@9.36.0"
+        ]
+      },
+      "tests": {
+        "hasTests": false,
+        "framework": null,
+        "coverage": null
+      },
+      "documentation": "frontend/CLAUDE.md"
+    }
+  ],
+  "coverage": {
+    "estimatedTotalFiles": 30,
+    "scannedFiles": 30,
+    "coveragePercentage": 100,
+    "excludedPatterns": [
+      "node_modules/**",
+      "venv/**",
+      "backend/venv/**",
+      "frontend/node_modules/**",
+      "*.lock",
+      "*.log",
+      "*.bin",
+      "*.joblib",
+      "*.old",
+      ".git/**"
+    ],
+    "scanDetails": {
+      "backend": {
+        "coreFiles": 2,
+        "configFiles": 1,
+        "modelFiles": 4,
+        "hasTests": false,
+        "hasDataModels": true,
+        "gaps": [
+          "缺少自动化测试",
+          "requirements.txt 拼写错误（vicorn → uvicorn）",
+          "缺少日志系统",
+          "配置应使用环境变量"
+        ]
+      },
+      "frontend": {
+        "components": 3,
+        "pages": 3,
+        "configFiles": 3,
+        "hasTests": false,
+        "hasTypeScript": false,
+        "gaps": [
+          "缺少自动化测试",
+          "硬编码的 API 地址",
+          "缺少 TypeScript",
+          "InteractiveTable 组件过大需要拆分"
+        ]
+      }
+    }
+  },
+  "architecture": {
+    "pattern": "前后端分离",
+    "backend": "RESTful API (FastAPI)",
+    "frontend": "SPA (React + Vite)",
+    "communication": "HTTP/JSON",
+    "deployment": "独立部署（前端静态托管 + 后端 ASGI 服务器）"
+  },
+  "recommendations": {
+    "immediate": [
+      "修复 backend/requirements.txt 中的拼写错误（vicorn → uvicorn）",
+      "使用环境变量管理后端 API 地址",
+      "为 backend 添加日志系统（使用 Python logging）",
+      "添加基本的单元测试（backend: pytest, frontend: vitest）"
+    ],
+    "shortTerm": [
+      "迁移前端到 TypeScript",
+      "拆分 InteractiveTable.jsx 为更小的子组件",
+      "添加错误边界和加载状态",
+      "配置 CI/CD 流程"
+    ],
+    "longTerm": [
+      "添加用户认证和授权",
+      "实现批量预测功能",
+      "添加数据可视化图表",
+      "容器化部署（Docker）",
+      "添加监控和日志聚合"
+    ]
+  },
+  "nextScanSuggestions": [
+    "如果添加了测试文件，下次扫描时更新测试覆盖率信息",
+    "如果添加了新的 API 端点，更新 backend 模块的 apis 列表",
+    "如果添加了新的路由，更新 frontend 模块的 routes 列表",
+    "定期检查依赖更新和安全漏洞"
+  ],
+  "truncated": false,
+  "scanDuration": "约 2 分钟",
+  "toolVersion": "Claude Code (Sonnet 4.5)"
+}
