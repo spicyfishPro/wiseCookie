@@ -8,7 +8,6 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import './InteractiveTable.css';
 
 // 5个数值特征的键名
 const SEARCH_KEYS = [
@@ -19,7 +18,7 @@ const SEARCH_KEYS = [
   'Sensory score'
 ];
 
-// 辅助组件：列过滤器
+// 辅助组件：列过滤器 (不变)
 function ColumnFilter({ column }) {
   const columnFilterValue = column.getFilterValue() || '';
   return (
@@ -28,7 +27,7 @@ function ColumnFilter({ column }) {
       value={columnFilterValue}
       onChange={(e) => column.setFilterValue(e.target.value)}
       placeholder={`搜索...`}
-      className="column-filter-input"
+      className="form-control form-control-sm"
     />
   );
 }

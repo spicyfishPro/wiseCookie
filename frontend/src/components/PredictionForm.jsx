@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './PredictionForm.css';
 
 // 后端API的地址，当更换部署环境时，修改IP和端口
 const API_URL = 'http://202.112.170.143:23300';
@@ -73,95 +72,46 @@ function PredictionForm() {
   };
 
   if (expectedFeatures.length === 0 && !error) {
-    return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>正在加载模型配置...</p>
-      </div>
-    );
+    return <div>正在加载模型配置...</div>;
   }
 
   return (
-    <div className="prediction-form-container">
-      {error && !expectedFeatures.length ? (
-        <div className="error-alert">
-          <span className="error-icon">⚠️</span>
-          <div>
-            <strong>加载失败</strong>
-            <p>{error}</p>
+    <div style={{ maxWidth: '500px', margin: 'auto', padding: '20px' }}>
+      <h2>模型预测</h2>
+      <p>请输入以下特征值以进行预测：</p>
+      
+      <form onSubmit={handleSubmit}>
+        {expectedFeatures.map(feature => (
+          <div key={feature} style={{ marginBottom: '10px' }}>
+            <label>
+              {feature}:
+              <input
+                type="number"
+                name={feature}
+                value={formData[feature]}
+                onChange={handleChange}
+                step="any"
+                style={{ width: '100%', padding: '5px', marginTop: '5px' }}
+              />
+            </label>
           </div>
+        ))}
+        <button type="submit" disabled={isLoading} style={{ padding: '10px 20px' }}>
+          {isLoading ? '正在预测...' : '预测'}
+        </button>
+      </form>
+
+      {/* 4. 显示结果 */}
+      {prediction !== null && (
+        <div style={{ marginTop: '20px', padding: '10px', background: '#e0f7fa' }}>
+          <h3>预测结果: {prediction.toFixed(6)}</h3>
         </div>
-      ) : (
-        <>
-          <div className="form-header">
-            <h2>模型预测</h2>
-            <p>请输入饼干特性参数，系统将进行精准预测</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="prediction-form">
-            <div className="form-grid">
-              {expectedFeatures.map((feature, index) => (
-                <div key={feature} className="form-group">
-                  <label htmlFor={feature} className="form-label">
-                    <span className="feature-number">{index + 1}</span>
-                    <span className="feature-name">{feature}</span>
-                  </label>
-                  <input
-                    id={feature}
-                    type="number"
-                    name={feature}
-                    value={formData[feature]}
-                    onChange={handleChange}
-                    step="any"
-                    placeholder="输入数值"
-                    className="form-input"
-                  />
-                  <span className="input-indicator"></span>
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className={`submit-button ${isLoading ? 'loading' : ''}`}
-            >
-              {isLoading ? (
-                <>
-                  <span className="spinner-small"></span>
-                  正在预测...
-                </>
-              ) : (
-                <>
-                  🚀 开始预测
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* 预测结果 */}
-          {prediction !== null && (
-            <div className="result-card success">
-              <div className="result-icon">✨</div>
-              <div className="result-content">
-                <h3>预测结果</h3>
-                <div className="result-value">{prediction.toFixed(6)}</div>
-                <p className="result-description">预测成功！</p>
-              </div>
-            </div>
-          )}
-
-          {/* 错误消息 */}
-          {error && (
-            <div className="result-card error">
-              <div className="result-icon">❌</div>
-              <div className="result-content">
-                <h3>预测失败</h3>
-                <p className="error-message">{error}</p>
-              </div>
-            </div>
-          )}
-        </>
+      )}
+      
+      {error && (
+        <div style={{ marginTop: '20px', padding: '10px', background: '#ffebee', color: 'red' }}>
+          <strong>错误:</strong> {error}
+        </div>
       )}
     </div>
   );
