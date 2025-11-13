@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import {
   useReactTable,
@@ -8,6 +8,11 @@ import {
   getSortedRowModel,
   flexRender,
 } from '@tanstack/react-table';
+import Button from './ui/Button';
+import Input from './ui/Input';
+import Select from './ui/Select';
+import LoadingSpinner from './ui/LoadingSpinner';
+import SearchSection from './ui/SearchSection';
 
 // 5个数值特征的键名
 const SEARCH_KEYS = [
@@ -131,9 +136,9 @@ function InteractiveTable() {
             header: '匹配度',
             accessorKey: 'matchScore',
             cell: info => (
-              info.getValue() === Infinity 
-                ? <span className="text-muted">-</span>
-                : <strong className="text-success">{info.getValue().toFixed(5)}</strong>
+              info.getValue() === Infinity
+                ? <span className="match-score-na">-</span>
+                : <span className="match-score">{info.getValue().toFixed(5)}</span>
             ),
             enableSorting: true,
             enableColumnFilter: false,
@@ -224,140 +229,123 @@ function InteractiveTable() {
     setSorting([]); // 清除排序
   };
 
-  // --- 渲染 (Loading) (不变) ---
+  // --- 渲染 (Loading) ---
   if (loading) {
-    return (
-      <div className="d-flex justify-content-center align-items-center" style={{ height: '200px' }}>
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">正在加载...</span>
-        </div>
-        <span className="ms-3">正在加载数据...</span>
-      </div>
-    );
+    return <LoadingSpinner text="正在加载数据..." />;
   }
 
-  // --- 渲染 (主 JSX) (已重写) ---
+  // --- 渲染 (主 JSX) ---
   return (
     <div>
-      <div className="card mb-4">
-        <div className="card-header">
-          <strong>高级搜索</strong>
-        </div>
-        <div className="card-body">
-          <form onSubmit={handleSearchSubmit}>
-            
-            {/* 1. 搜索模式选择 */}
-            <div className="mb-3">
-              <label className="form-label">请选择搜索模式:</label>
-              <div className="form-check">
+      <SearchSection title="高级搜索">
+        <form onSubmit={handleSearchSubmit}>
+          {/* 1. 搜索模式选择 */}
+          <div className="form-group">
+            <label className="form-label">请选择搜索模式:</label>
+            <div style={{ display: 'flex', gap: '24px', marginTop: '8px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <input
-                  className="form-check-input"
                   type="radio"
                   name="searchMode"
-                  id="mode-similarity"
                   value="similarity"
                   checked={searchMode === 'similarity'}
                   onChange={handleModeChange}
+                  style={{ cursor: 'pointer' }}
                 />
-                <label className="form-check-label" htmlFor="mode-similarity">
-                  按 5 项特征相似度搜索
-                </label>
-              </div>
-              <div className="form-check">
+                <span style={{ color: 'var(--text-secondary)' }}>按 5 项特征相似度搜索</span>
+              </label>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <input
-                  className="form-check-input"
                   type="radio"
                   name="searchMode"
-                  id="mode-type"
                   value="type"
                   checked={searchMode === 'type'}
                   onChange={handleModeChange}
+                  style={{ cursor: 'pointer' }}
                 />
-                <label className="form-check-label" htmlFor="mode-type">
-                  按 Type 类型搜索
-                </label>
+                <span style={{ color: 'var(--text-secondary)' }}>按 Type 类型搜索</span>
+              </label>
+            </div>
+          </div>
+
+          <hr style={{
+            border: 'none',
+            borderTop: '1px solid var(--border-color)',
+            margin: '24px 0'
+          }} />
+
+          {/* 2. 条件渲染的表单内容 */}
+
+          {/* 模式一：相似度搜索表单 */}
+          {searchMode === 'similarity' && (
+            <div id="similarity-form">
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>
+                请输入所有 5 个特征值，将按相似度排序：
+              </p>
+              <div className="grid grid-3">
+                {SEARCH_KEYS.map(key => (
+                  <Input
+                    key={key}
+                    label={key}
+                    type="number"
+                    name={key}
+                    value={searchValues[key]}
+                    onChange={handleSearchChange}
+                  />
+                ))}
               </div>
             </div>
+          )}
 
-            <hr />
-
-            {/* 2. 条件渲染的表单内容 */}
-            
-            {/* 模式一：相似度搜索表单 */}
-            {searchMode === 'similarity' && (
-              <div id="similarity-form">
-                <p>请输入所有 5 个特征值，将按相似度排序：</p>
-                <div className="row g-3">
-                  {SEARCH_KEYS.map(key => (
-                    <div className="col-md-4 col-lg" key={key}>
-                      <label htmlFor={key} className="form-label">{key}</label>
-                      <input
-                        type="number"
-                        step="any"
-                        className="form-control"
-                        id={key}
-                        name={key}
-                        value={searchValues[key]}
-                        onChange={handleSearchChange}
-                        required // 仅在此模式下必填
-                      />
-                    </div>
-                  ))}
-                </div>
+          {/* 模式二：Type 搜索表单 */}
+          {searchMode === 'type' && (
+            <div id="type-form">
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>
+                请选择一个 Type，将筛选出所有匹配项：
+              </p>
+              <div style={{ maxWidth: '400px' }}>
+                <Select
+                  label="指定 Type"
+                  value={selectedType}
+                  onChange={handleTypeChange}
+                  options={uniqueTypes.map(type => ({
+                    value: type,
+                    label: type === 'all' ? '--- 请选择 ---' : type,
+                  }))}
+                />
               </div>
-            )}
-
-            {/* 模式二：Type 搜索表单 */}
-            {searchMode === 'type' && (
-              <div id="type-form">
-                <p>请选择一个 Type，将筛选出所有匹配项：</p>
-                <div className="row">
-                  <div className="col-md-6">
-                    <label htmlFor="type-select" className="form-label">
-                      指定 Type
-                    </label>
-                    <select 
-                      id="type-select" 
-                      className="form-select" 
-                      value={selectedType} 
-                      onChange={handleTypeChange}
-                    >
-                      {uniqueTypes.map(type => (
-                        <option key={type} value={type}>
-                          {type === 'all' ? '--- 请选择 ---' : type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {/* 3. 提交和清除按钮 */}
-            <div className="mt-3">
-              <button type="submit" className="btn btn-primary me-2">
-                搜索
-              </button>
-              <button type="button" className="btn btn-outline-secondary" onClick={handleClearSearch}>
-                清除所有搜索
-              </button>
             </div>
-          </form>
-        </div>
-      </div>
+          )}
 
-      {/* 表格 (不变) */}
+          {/* 3. 提交和清除按钮 */}
+          <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+            <Button type="submit" variant="primary">
+              搜索
+            </Button>
+            <Button type="button" variant="outline" onClick={handleClearSearch}>
+              清除所有搜索
+            </Button>
+          </div>
+        </form>
+      </SearchSection>
+
+      {/* 表格 */}
       <div className="table-responsive">
-        <table className="table table-striped table-hover table-bordered table-sm">
-          {/* ... (thead 和 tbody 渲染逻辑不变) ... */}
+        <table className="table">
           <thead>
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id} scope="col" style={{ width: header.getSize() !== 150 ? undefined : header.getSize() }}>
+                  <th key={header.id} scope="col" style={{ width: header.column.getSize() }}>
                     <div
                       onClick={header.column.getToggleSortingHandler()}
-                      className={header.column.getCanSort() ? 'cursor-pointer' : ''}
+                      style={{
+                        cursor: header.column.getCanSort() ? 'pointer' : 'default',
+                        userSelect: 'none',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}
                       title="点击排序"
                     >
                       {flexRender(header.column.columnDef.header, header.getContext())}
@@ -388,9 +376,50 @@ function InteractiveTable() {
         </table>
       </div>
 
-      {/* 分页 (不变) */}
-      <div className="d-flex justify-content-between align-items-center flex-wrap gap-2">
-        {/* ... (分页控件不变) ... */}
+      {/* 分页 */}
+      <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+        <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+          显示第 {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} 到{' '}
+          {Math.min(
+            (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
+            table.getFilteredRowModel().rows.length
+          )}{' '}
+          条，共 {table.getFilteredRowModel().rows.length} 条记录
+        </div>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {'<<'}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {'<'}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {'>'}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            {'>>'}
+          </Button>
+        </div>
       </div>
     </div>
   );

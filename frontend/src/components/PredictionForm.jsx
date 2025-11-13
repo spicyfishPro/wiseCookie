@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Card from './ui/Card';
+import Button from './ui/Button';
+import Input from './ui/Input';
+import PredictionResult from './ui/PredictionResult';
 
 // 后端API的地址
 const API_URL = 'http://202.112.170.143:23300';
@@ -82,52 +86,56 @@ function PredictionForm() {
   }
 
   return (
-    <div style={{ maxWidth: '500px', margin: 'auto', padding: '20px' }}>
-      <h2 style={{ textAlign: 'center' }}>饼干质量预测系统</h2>
-      
-      <form onSubmit={handleSubmit}>
-        {expectedFeatures.map(feature => (
-          <div key={feature} style={{ marginBottom: '15px' }}>
-            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>
-              {/* 🟢 2. 尝试获取中文名称，如果映射表中没有，则回退显示英文 */}
-              {FEATURE_LABELS[feature] || feature}:
-            </label>
-            <input
-              type="number"
-              name={feature}
-              value={formData[feature]}
-              onChange={handleChange}
-              step="any"
-              placeholder={`请输入 ${FEATURE_LABELS[feature] || feature}`}
-              style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-            />
-          </div>
-        ))}
-        <button 
-          type="submit" 
-          disabled={isLoading} 
-          style={{ 
-            width: '100%', 
-            padding: '10px', 
-            backgroundColor: isLoading ? '#ccc' : '#1976d2', 
-            color: '#fff', 
-            border: 'none', 
-            cursor: isLoading ? 'not-allowed' : 'pointer',
-            marginTop: '10px'
+    <div className="container">
+      <div style={{ display: 'flex', gap: '24px', alignItems: 'stretch' }}>
+        {/* 左侧：输入表单 */}
+        <div style={{ flex: '0 0 50%' }}>
+          <Card>
+            <form onSubmit={handleSubmit}>
+              {expectedFeatures.map(feature => (
+                <Input
+                  key={feature}
+                  label={FEATURE_LABELS[feature] || feature}
+                  type="number"
+                  name={feature}
+                  value={formData[feature]}
+                  onChange={handleChange}
+                  placeholder={`请输入 ${FEATURE_LABELS[feature] || feature}`}
+                />
+              ))}
+              <Button
+                type="submit"
+                disabled={isLoading}
+                variant="primary"
+                style={{ width: '100%' }}
+              >
+                {isLoading ? '正在计算...' : '开始预测'}
+              </Button>
+            </form>
+          </Card>
+        </div>
+
+        {/* 右侧：预测结果 */}
+        <div style={{ flex: '0 0 50%' }}>
+          <PredictionResult
+            prediction={prediction}
+            loading={isLoading}
+            empty={!prediction && !isLoading}
+          />
+        </div>
+      </div>
+
+      {error && (
+        <div
+          style={{
+            marginTop: '24px',
+            padding: '16px',
+            backgroundColor: '#fef2f2',
+            color: '#991b1b',
+            borderRadius: '8px',
+            border: '1px solid #fecaca',
           }}
         >
-          {isLoading ? '正在计算...' : '开始预测'}
-        </button>
-      </form>
-
-      {prediction !== null && (
-        <div style={{ marginTop: '20px', padding: '15px', background: '#e0f7fa', borderRadius: '4px' }}>
-          <h3 style={{ margin: 0 }}>预测的饼干综合得分: <span style={{ color: '#00796b' }}>{prediction.toFixed(2)}</span></h3>
-        </div>
-      )}
-      
-      {error && (
-        <div style={{ marginTop: '20px', padding: '10px', background: '#ffebee', color: 'd32f2f', borderRadius: '4px' }}>
           <strong>错误:</strong> {error}
         </div>
       )}
