@@ -28,7 +28,7 @@ function Navbar() {
 
   return (
     <nav style={navStyle}>
-      <Link to="/" style={titleStyle}>ML 预测平台</Link>
+      <Link to="/" style={titleStyle}>WiseCookie 饼干综合得分预测</Link>
       <Link to="/predict" style={linkStyle}>模型预测</Link>
       <Link to="/table" style={linkStyle}>交互表格</Link>
     </nav>

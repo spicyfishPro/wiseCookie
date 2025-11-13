@@ -4,9 +4,9 @@ import PredictionForm from '../components/PredictionForm'; // 导入我们之前
 function PredictPage() {
   return (
     <div>
-      <h1>机器学习模型预测</h1>
+      <h1>利用籽粒性状预测饼干综合得分</h1>
       <p>
-        请在下方输入饼干模型的输入变量。
+        请在下方输入籽粒蛋白质含量、籽粒硬度和籽粒面筋蛋白含量的数值。
       </p>
       <hr style={{ margin: '20px 0' }} />
       <PredictionForm />
