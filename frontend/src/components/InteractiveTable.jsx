@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Papa from 'papaparse';
 import {
   useReactTable,
@@ -23,15 +24,16 @@ const SEARCH_KEYS = [
   'Sensory score'
 ];
 
-// 辅助组件：列过滤器 (不变)
+// 辅助组件：列过滤器
 function ColumnFilter({ column }) {
+  const { t } = useTranslation();
   const columnFilterValue = column.getFilterValue() || '';
   return (
     <input
       type="text"
       value={columnFilterValue}
       onChange={(e) => column.setFilterValue(e.target.value)}
-      placeholder={`搜索...`}
+      placeholder={t('table.table.searchPlaceholder')}
       className="form-control form-control-sm"
     />
   );
@@ -60,6 +62,7 @@ const calculateDistance = (row, inputs, normParams) => {
 
 // 主表格组件
 function InteractiveTable() {
+  const { t } = useTranslation();
   const [originalData, setOriginalData] = useState([]);
   const [data, setData] = useState([]); 
   const [columns, setColumns] = useState([]);
@@ -191,7 +194,7 @@ function InteractiveTable() {
       // 模式一：相似度搜索
       const allFilled = SEARCH_KEYS.every(key => searchValues[key] !== '');
       if (!allFilled) {
-        alert("请填写所有 5 个特征值。");
+        alert(t('table.search.fillAllFields'));
         return;
       }
       
@@ -206,7 +209,7 @@ function InteractiveTable() {
     } else if (searchMode === 'type') {
       // 模式二：按 Type 搜索
       if (selectedType === 'all') {
-        alert("请选择一个具体的 Type。");
+        alert(t('table.search.selectType'));
         return;
       }
 
@@ -231,17 +234,17 @@ function InteractiveTable() {
 
   // --- 渲染 (Loading) ---
   if (loading) {
-    return <LoadingSpinner text="正在加载数据..." />;
+    return <LoadingSpinner text={t('table.loading')} />;
   }
 
   // --- 渲染 (主 JSX) ---
   return (
     <div>
-      <SearchSection title="高级搜索">
+      <SearchSection title={t('table.search.title')}>
         <form onSubmit={handleSearchSubmit}>
           {/* 1. 搜索模式选择 */}
           <div className="form-group">
-            <label className="form-label">请选择搜索模式:</label>
+            <label className="form-label">{t('table.search.modeLabel')}</label>
             <div style={{ display: 'flex', gap: '24px', marginTop: '8px' }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <input
@@ -252,7 +255,7 @@ function InteractiveTable() {
                   onChange={handleModeChange}
                   style={{ cursor: 'pointer' }}
                 />
-                <span style={{ color: 'var(--text-secondary)' }}>按 5 项特征相似度搜索</span>
+                <span style={{ color: 'var(--text-secondary)' }}>{t('table.search.modeSimilarity')}</span>
               </label>
               <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                 <input
@@ -263,7 +266,7 @@ function InteractiveTable() {
                   onChange={handleModeChange}
                   style={{ cursor: 'pointer' }}
                 />
-                <span style={{ color: 'var(--text-secondary)' }}>按 Type 类型搜索</span>
+                <span style={{ color: 'var(--text-secondary)' }}>{t('table.search.modeType')}</span>
               </label>
             </div>
           </div>
@@ -280,7 +283,7 @@ function InteractiveTable() {
           {searchMode === 'similarity' && (
             <div id="similarity-form">
               <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>
-                请输入所有 5 个特征值，将按相似度排序：
+                {t('table.search.similarityDescription')}
               </p>
               <div className="grid grid-3">
                 {SEARCH_KEYS.map(key => (
@@ -301,16 +304,16 @@ function InteractiveTable() {
           {searchMode === 'type' && (
             <div id="type-form">
               <p style={{ color: 'var(--text-secondary)', marginBottom: '16px' }}>
-                请选择一个 Type，将筛选出所有匹配项：
+                {t('table.search.typeDescription')}
               </p>
               <div style={{ maxWidth: '400px' }}>
                 <Select
-                  label="指定 Type"
+                  label={t('table.search.typeLabel')}
                   value={selectedType}
                   onChange={handleTypeChange}
                   options={uniqueTypes.map(type => ({
                     value: type,
-                    label: type === 'all' ? '--- 请选择 ---' : type,
+                    label: type === 'all' ? t('table.search.typePlaceholder') : type,
                   }))}
                 />
               </div>
@@ -320,10 +323,10 @@ function InteractiveTable() {
           {/* 3. 提交和清除按钮 */}
           <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
             <Button type="submit" variant="primary">
-              搜索
+              {t('table.search.submit')}
             </Button>
             <Button type="button" variant="outline" onClick={handleClearSearch}>
-              清除所有搜索
+              {t('table.search.clear')}
             </Button>
           </div>
         </form>
@@ -346,7 +349,7 @@ function InteractiveTable() {
                         alignItems: 'center',
                         gap: '4px',
                       }}
-                      title="点击排序"
+                      title={t('table.table.sortTooltip')}
                     >
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {{
@@ -379,12 +382,14 @@ function InteractiveTable() {
       {/* 分页 */}
       <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
         <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-          显示第 {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} 到{' '}
-          {Math.min(
-            (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
-            table.getFilteredRowModel().rows.length
-          )}{' '}
-          条，共 {table.getFilteredRowModel().rows.length} 条记录
+          {t('table.table.pagination.showing', {
+            start: table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1,
+            end: Math.min(
+              (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
+              table.getFilteredRowModel().rows.length
+            ),
+            total: table.getFilteredRowModel().rows.length
+          })}
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <Button

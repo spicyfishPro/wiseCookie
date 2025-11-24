@@ -1,13 +1,16 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import InteractiveTable from '../components/InteractiveTable';
 
 function TablePage() {
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">饼干性质数据表</h1>
+        <h1 className="page-title">{t('table.title')}</h1>
         <p className="page-subtitle">
-          浏览和分析现有的饼干数据集，支持按类型筛选、相似度搜索和多种排序方式
+          {t('table.subtitle')}
         </p>
       </div>
       <InteractiveTable />

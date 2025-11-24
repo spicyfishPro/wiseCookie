@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const LoadingSpinner = ({ size = 'md', text = '正在加载...', style }) => {
+const LoadingSpinner = ({ size = 'md', text, style }) => {
+  const { t } = useTranslation();
+  const displayText = text || t('common.loading');
   const sizeStyle = {
     sm: { width: '24px', height: '24px', borderWidth: '2px' },
     md: { width: '40px', height: '40px', borderWidth: '3px' },
@@ -29,7 +32,7 @@ const LoadingSpinner = ({ size = 'md', text = '正在加载...', style }) => {
           marginBottom: '16px',
         }}
       ></div>
-      <span style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{text}</span>
+      <span style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{displayText}</span>
     </div>
   );
 };

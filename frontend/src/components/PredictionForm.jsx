@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Card from './ui/Card';
 import Button from './ui/Button';
@@ -8,21 +9,31 @@ import PredictionResult from './ui/PredictionResult';
 // 后端API的地址
 const API_URL = 'http://202.112.170.143:23300';
 
-// 🟢 1. 在这里定义英文到中文的映射关系
-// 请根据你后端实际返回的变量名（Console.log可以看到）进行修改
-const FEATURE_LABELS = {
-  "Gluten_content": " 面筋含量(%)",
-  "Protein_content": "蛋白质含量(%)",
-  "Hardness": "硬度",
-  // ... 在这里添加更多映射，格式为 "英文变量": "中文名称"
-};
-
 function PredictionForm() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({});
   const [expectedFeatures, setExpectedFeatures] = useState([]);
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // 🟢 动态获取特征标签
+  const getFeatureLabel = (feature) => {
+    // 先尝试从国际化资源中获取
+    const i18nKey = `predict.features.${feature}`;
+    if (t(i18nKey, { defaultValue: '' }) !== '') {
+      return t(i18nKey);
+    }
+
+    // 如果没有国际化翻译，则使用默认的英文到中文映射
+    const FEATURE_LABELS = {
+      "Gluten_content": t('predict.features.glutenContent', { defaultValue: "面筋含量(%)" }),
+      "Protein_content": t('predict.features.proteinContent', { defaultValue: "蛋白质含量(%)" }),
+      "Hardness": t('predict.features.hardness', { defaultValue: "硬度" }),
+    };
+
+    return FEATURE_LABELS[feature] || feature;
+  };
 
   useEffect(() => {
     axios.get(`${API_URL}/api/v1/features`)
@@ -40,7 +51,7 @@ function PredictionForm() {
         setFormData(initialForm);
       })
       .catch(err => {
-        setError('无法从后端加载特征列表。');
+        setError(t('predict.form.error'));
         console.error(err);
       });
   }, []);
@@ -60,7 +71,7 @@ function PredictionForm() {
     setPrediction(null);
 
     if (Object.values(formData).some(v => v === '')) {
-      setError('所有字段均为必填项。');
+      setError(t('predict.form.required'));
       setIsLoading(false);
       return;
     }
@@ -72,7 +83,7 @@ function PredictionForm() {
         setPrediction(response.data.prediction);
       })
       .catch(err => {
-        const errorMsg = err.response?.data?.detail || '预测失败，请检查输入。';
+        const errorMsg = err.response?.data?.detail || t('predict.form.predictionFailed');
         setError(errorMsg);
         console.error('预测请求失败:', err.response || err);
       })
@@ -82,7 +93,7 @@ function PredictionForm() {
   };
 
   if (expectedFeatures.length === 0 && !error) {
-    return <div>正在加载模型配置...</div>;
+    return <div>{t('predict.form.loading')}</div>;
   }
 
   return (
@@ -95,12 +106,12 @@ function PredictionForm() {
               {expectedFeatures.map(feature => (
                 <Input
                   key={feature}
-                  label={FEATURE_LABELS[feature] || feature}
+                  label={getFeatureLabel(feature)}
                   type="number"
                   name={feature}
                   value={formData[feature]}
                   onChange={handleChange}
-                  placeholder={`请输入 ${FEATURE_LABELS[feature] || feature}`}
+                  placeholder={t('predict.form.placeholder', { feature: getFeatureLabel(feature) })}
                 />
               ))}
               <Button
@@ -109,7 +120,7 @@ function PredictionForm() {
                 variant="primary"
                 style={{ width: '100%' }}
               >
-                {isLoading ? '正在计算...' : '开始预测'}
+                {isLoading ? t('predict.form.submitting') : t('predict.form.submit')}
               </Button>
             </form>
           </Card>
@@ -136,7 +147,7 @@ function PredictionForm() {
             border: '1px solid #fecaca',
           }}
         >
-          <strong>错误:</strong> {error}
+          <strong>{t('predict.form.errorTitle')}</strong> {error}
         </div>
       )}
     </div>

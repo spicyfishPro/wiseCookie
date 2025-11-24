@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>i18n Test</title>
+    <script>
+        function checkI18n() {
+            console.log('Testing i18n functionality...');
+
+            // 测试 localStorage
+            const savedLang = localStorage.getItem('i18nextLng');
+            console.log('Saved language in localStorage:', savedLang);
+
+            // 测试当前页面内容
+            const brand = document.querySelector('.navbar-brand');
+            if (brand) {
+                console.log('Brand text:', brand.textContent);
+            }
+
+            const navLinks = document.querySelectorAll('.navbar-link');
+            navLinks.forEach((link, index) => {
+                console.log(`Nav link ${index}:`, link.textContent);
+            });
+
+            console.log('i18n test completed!');
+        }
+
+        // 延迟执行，确保页面加载完成
+        setTimeout(checkI18n, 2000);
+    </script>
+</head>
+<body>
+    <h1>i18n 测试页面</h1>
+    <p>请检查控制台输出以验证国际化功能。</p>
+    <p>请手动访问 http://localhost:5173 测试语言切换功能。</p>
+
+    <h2>测试步骤：</h2>
+    <ol>
+        <li>打开 http://localhost:5173</li>
+        <li>检查导航栏是否显示语言切换按钮</li>
+        <li>点击 🇺🇸 English 切换到英文</li>
+        <li>验证所有页面文本是否切换为英文</li>
+        <li>点击 🇨🇳 中文 切换回中文</li>
+        <li>验证所有页面文本是否切换回中文</li>
+    </ol>
+
+    <h2>需要检查的页面：</h2>
+    <ul>
+        <li>首页 (/)</li>
+        <li>模型预测 (/predict)</li>
+        <li>数据表格 (/table)</li>
+    </ul>
+</body>
+</html>

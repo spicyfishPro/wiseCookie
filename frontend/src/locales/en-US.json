@@ -1,0 +1,83 @@
+{
+  "navbar": {
+    "brand": "WiseCookie",
+    "home": "Home",
+    "predict": "Prediction",
+    "table": "Data Table"
+  },
+  "home": {
+    "title": "Welcome to WiseCookie",
+    "subtitle": "Intelligent Cookie Quality Prediction and Analysis Platform Based on Machine Learning",
+    "features": {
+      "title": "Features",
+      "predict": {
+        "title": "Model Prediction",
+        "description": "Input key features such as gluten content, protein content, and hardness to obtain comprehensive cookie quality scores based on machine learning models.",
+        "link": "Start Prediction"
+      },
+      "table": {
+        "title": "Interactive Table",
+        "description": "Browse and analyze existing cookie datasets with support for type filtering, similarity search, and various sorting methods.",
+        "link": "View Data"
+      }
+    },
+    "about": {
+      "title": "About the Prediction Model",
+      "description1": "Our prediction model is based on ensemble learning methods, integrating multiple machine learning algorithms to accurately predict comprehensive cookie quality scores based on physicochemical characteristics.",
+      "description2": "This platform aims to help food R&D personnel quickly evaluate formulation feasibility, optimize production processes, and improve product development efficiency."
+    }
+  },
+  "predict": {
+    "title": "Predict Cookie Comprehensive Score Using Grain Traits",
+    "subtitle": "Please input grain protein content, grain hardness, and grain gluten protein content values below",
+    "form": {
+      "loading": "Loading model configuration...",
+      "placeholder": "Enter {{feature}}",
+      "submit": "Start Prediction",
+      "submitting": "Calculating...",
+      "required": "All fields are required.",
+      "error": "Unable to load feature list from backend.",
+      "predictionFailed": "Prediction failed, please check input.",
+      "errorTitle": "Error:"
+    }
+  },
+  "predictResult": {
+    "loading": "Calculating prediction results...",
+    "empty": "Prediction results will be displayed here",
+    "title": "Predicted Cookie Comprehensive Score",
+    "basedOn": "Based on your input feature values"
+  },
+  "table": {
+    "title": "Cookie Properties Data Table",
+    "subtitle": "Browse and analyze existing cookie datasets with support for type filtering, similarity search, and various sorting methods",
+    "search": {
+      "title": "Advanced Search",
+      "modeLabel": "Please select search mode:",
+      "modeSimilarity": "Search by 5 Feature Similarity",
+      "modeType": "Search by Type",
+      "similarityDescription": "Please enter all 5 feature values, sorted by similarity:",
+      "typeDescription": "Please select a Type to filter all matching items:",
+      "typeLabel": "Specify Type",
+      "typePlaceholder": "--- Please Select ---",
+      "submit": "Search",
+      "clear": "Clear All Search",
+      "fillAllFields": "Please fill in all 5 feature values.",
+      "selectType": "Please select a specific Type."
+    },
+    "table": {
+      "searchPlaceholder": "Search...",
+      "sortTooltip": "Click to sort",
+      "pagination": {
+        "showing": "Showing {{start}} to {{end}} of {{total}} records"
+      }
+    },
+    "loading": "Loading data..."
+  },
+  "common": {
+    "loading": "Loading...",
+    "language": {
+      "chinese": "中文",
+      "english": "English"
+    }
+  }
+}

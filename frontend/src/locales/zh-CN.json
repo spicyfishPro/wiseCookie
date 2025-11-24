@@ -1,0 +1,83 @@
+{
+  "navbar": {
+    "brand": "WiseCookie",
+    "home": "首页",
+    "predict": "模型预测",
+    "table": "交互表格"
+  },
+  "home": {
+    "title": "欢迎来到 WiseCookie",
+    "subtitle": "基于机器学习的智能饼干质量预测与分析平台",
+    "features": {
+      "title": "功能特色",
+      "predict": {
+        "title": "模型预测",
+        "description": "输入面筋含量、蛋白质含量、硬度等关键特征，获得基于机器学习模型的饼干综合得分预测。",
+        "link": "开始预测"
+      },
+      "table": {
+        "title": "交互表格",
+        "description": "浏览和分析现有的饼干数据集，支持按类型筛选、相似度搜索和多种排序方式。",
+        "link": "查看数据"
+      }
+    },
+    "about": {
+      "title": "关于预测模型",
+      "description1": "我们的预测模型基于集成学习方法，融合了多种机器学习算法，能够根据饼干的物理化学特征准确预测其综合质量得分。",
+      "description2": "该平台旨在帮助食品研发人员快速评估配方可行性，优化生产工艺，提高产品开发效率。"
+    }
+  },
+  "predict": {
+    "title": "利用籽粒性状预测饼干综合得分",
+    "subtitle": "请在下方输入籽粒蛋白质含量、籽粒硬度和籽粒面筋蛋白含量的数值",
+    "form": {
+      "loading": "正在加载模型配置...",
+      "placeholder": "请输入 {{feature}}",
+      "submit": "开始预测",
+      "submitting": "正在计算...",
+      "required": "所有字段均为必填项。",
+      "error": "无法从后端加载特征列表。",
+      "predictionFailed": "预测失败，请检查输入。",
+      "errorTitle": "错误:"
+    }
+  },
+  "predictResult": {
+    "loading": "正在计算预测结果...",
+    "empty": "预测结果将显示在此处",
+    "title": "预测的饼干综合得分",
+    "basedOn": "基于您输入的特征值"
+  },
+  "table": {
+    "title": "饼干性质数据表",
+    "subtitle": "浏览和分析现有的饼干数据集，支持按类型筛选、相似度搜索和多种排序方式",
+    "search": {
+      "title": "高级搜索",
+      "modeLabel": "请选择搜索模式:",
+      "modeSimilarity": "按 5 项特征相似度搜索",
+      "modeType": "按 Type 类型搜索",
+      "similarityDescription": "请输入所有 5 个特征值，将按相似度排序：",
+      "typeDescription": "请选择一个 Type，将筛选出所有匹配项：",
+      "typeLabel": "指定 Type",
+      "typePlaceholder": "--- 请选择 ---",
+      "submit": "搜索",
+      "clear": "清除所有搜索",
+      "fillAllFields": "请填写所有 5 个特征值。",
+      "selectType": "请选择一个具体的 Type。"
+    },
+    "table": {
+      "searchPlaceholder": "搜索...",
+      "sortTooltip": "点击排序",
+      "pagination": {
+        "showing": "显示第 {{start}} 到 {{end}} 条，共 {{total}} 条记录"
+      }
+    },
+    "loading": "正在加载数据..."
+  },
+  "common": {
+    "loading": "正在加载...",
+    "language": {
+      "chinese": "中文",
+      "english": "English"
+    }
+  }
+}

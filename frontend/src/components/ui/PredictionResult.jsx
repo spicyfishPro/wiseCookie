@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const PredictionResult = ({ prediction, loading, empty }) => {
+  const { t } = useTranslation();
   if (loading) {
     return (
       <div
@@ -28,7 +30,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
             marginBottom: '16px',
           }}
         ></div>
-        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>正在计算预测结果...</p>
+        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>{t('predictResult.loading')}</p>
       </div>
     );
   }
@@ -49,7 +51,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
           justifyContent: 'center',
         }}
       >
-        <p style={{ margin: 0, fontSize: '1rem' }}>预测结果将显示在此处</p>
+        <p style={{ margin: 0, fontSize: '1rem' }}>{t('predictResult.empty')}</p>
       </div>
     );
   }
@@ -78,7 +80,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
             fontWeight: 500,
           }}
         >
-          预测的饼干综合得分
+          {t('predictResult.title')}
         </h3>
         <div
           style={{
@@ -92,7 +94,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
           {prediction.toFixed(2)}
         </div>
         <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-          基于您输入的特征值
+          {t('predictResult.basedOn')}
         </p>
       </div>
     );
