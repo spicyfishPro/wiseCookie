@@ -574,45 +574,80 @@ input::placeholder {
    Language Selector Styles (Added to clean up JSX)
    ========================================= */
    
+/* Language Selector Container */
 .language-selector {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr; /* 确保两个选项等宽 */
   background-color: var(--bg-tertiary);
   padding: 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-color);
+  isolation: isolate; /* 创建新的堆叠上下文 */
 }
 
+/* The Sliding Background */
+.lang-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px); /* 宽度为容器一半减去单侧内边距 */
+  height: calc(100% - 8px);
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  pointer-events: none; /* 让鼠标事件穿透到底层按钮 */
+}
+
+/* Sliding Logic */
+/* 当是英文(右侧)时，滑块向右移动 100% (即自身的宽度) */
+.language-selector[data-active="en-US"] .lang-slider {
+  transform: translateX(100%);
+}
+/* 中文(左侧)时，保持在原位 */
+.language-selector[data-active="zh-CN"] .lang-slider {
+  transform: translateX(0);
+}
+
+/* Language Buttons */
 .lang-btn {
+  position: relative;
+  z-index: 2; /* 位于滑块之上 */
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 6px 14px;
   background-color: transparent;
-  border: 1px solid transparent;
+  border: none;
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 500;
-  transition: var(--transition);
-  text-decoration: none;
-  line-height: 1.2;
+  transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .lang-btn:hover {
   color: var(--text-primary);
-  background-color: rgba(0,0,0,0.02);
 }
 
 .lang-btn.active {
-  background-color: var(--bg-primary);
   color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
-  border-color: var(--border-light);
   font-weight: 600;
-  transform: none; /* 禁用缩放以保持对齐 */
+}
+
+/* Responsive adjustment (Mobile) */
+@media (max-width: 768px) {
+  .lang-btn span:last-child {
+    display: none;
+  }
+  .lang-btn {
+    padding: 6px 10px;
+  }
 }
 
 /* =========================================
