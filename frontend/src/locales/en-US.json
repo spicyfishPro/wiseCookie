@@ -41,9 +41,9 @@
       "errorTitle": "Error:"
     },
     "features": {
-      "protein": "Grain Protein Content",
+      "proteinContent": "Grain Protein Content (%)",
       "hardness": "Grain Hardness",
-      "gluten": "Grain Gluten Content"
+      "glutenContent": "Grain Gluten Content (%)"
     }
   },
   "predictResult": {
