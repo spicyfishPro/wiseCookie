@@ -2,73 +2,73 @@
   "navbar": {
     "brand": "WiseCookie",
     "home": "Home",
-    "predict": "Prediction",
-    "table": "Data Table"
+    "predict": "Model Prediction",
+    "table": "Interactive Table"
   },
   "home": {
     "title": "Welcome to WiseCookie",
-    "subtitle": "Intelligent Cookie Quality Prediction and Analysis Platform Based on Machine Learning",
+    "subtitle": "An intelligent machine learning platform for cookie quality prediction and analysis",
     "features": {
       "title": "Features",
       "predict": {
         "title": "Model Prediction",
-        "description": "Input key features such as gluten content, protein content, and hardness to obtain comprehensive cookie quality scores based on machine learning models.",
+        "description": "Input grain traits like gluten content, protein content, and hardness to get a comprehensive digital cookie score based on ML models.",
         "link": "Start Prediction"
       },
       "table": {
         "title": "Interactive Table",
-        "description": "Browse and analyze existing cookie datasets with support for type filtering, similarity search, and various sorting methods.",
+        "description": "Browse and analyze existing cookie datasets, supporting filtering by type, similarity search, and various sorting methods.",
         "link": "View Data"
       }
     },
     "about": {
-      "title": "About the Prediction Model",
-      "description1": "Our prediction model is based on ensemble learning methods, integrating multiple machine learning algorithms to accurately predict comprehensive cookie quality scores based on physicochemical characteristics.",
-      "description2": "This platform aims to help food R&D personnel quickly evaluate formulation feasibility, optimize production processes, and improve product development efficiency."
+      "title": "About the Model",
+      "description1": "Our prediction model utilizes ensemble learning methods, integrating multiple machine learning algorithms to accurately predict the comprehensive quality score of cookies based on physicochemical characteristics.",
+      "description2": "This platform aims to help food R&D personnel quickly evaluate recipe feasibility, optimize production processes, and improve product development efficiency."
     }
   },
   "predict": {
-    "title": "Predict Cookie Comprehensive Score Using Grain Traits",
-    "subtitle": "Please input grain protein content, grain hardness, and grain gluten protein content values below",
+    "title": "Predict Cookie Score using Grain Traits",
+    "subtitle": "Please enter the values for Grain Protein Content, Grain Hardness, and Grain Gluten Content below",
     "form": {
       "loading": "Loading model configuration...",
       "placeholder": "Enter {{feature}}",
-      "submit": "Start Prediction",
+      "submit": "Predict",
       "submitting": "Calculating...",
       "required": "All fields are required.",
-      "error": "Unable to load feature list from backend.",
-      "predictionFailed": "Prediction failed, please check input.",
+      "error": "Failed to load feature list from backend.",
+      "predictionFailed": "Prediction failed. Please check your input.",
       "errorTitle": "Error:"
     }
   },
   "predictResult": {
-    "loading": "Calculating prediction results...",
-    "empty": "Prediction results will be displayed here",
-    "title": "Predicted Cookie Comprehensive Score",
-    "basedOn": "Based on your input feature values"
+    "loading": "Calculating prediction result...",
+    "empty": "Prediction result will be here",
+    "title": "Predicted Cookie Score",
+    "basedOn": "Based on the features you entered"
   },
   "table": {
-    "title": "Cookie Properties Data Table",
-    "subtitle": "Browse and analyze existing cookie datasets with support for type filtering, similarity search, and various sorting methods",
+    "title": "Cookie Textures Data Table",
+    "subtitle": "Browse and analyze existing cookie datasets, supporting filtering by type, similarity search, and multiple sorting methods",
     "search": {
       "title": "Advanced Search",
-      "modeLabel": "Please select search mode:",
-      "modeSimilarity": "Search by 5 Feature Similarity",
+      "modeLabel": "Select Search Mode:",
+      "modeSimilarity": "Search by 5-Indicators Similarity",
       "modeType": "Search by Type",
-      "similarityDescription": "Please enter all 5 feature values, sorted by similarity:",
-      "typeDescription": "Please select a Type to filter all matching items:",
+      "similarityDescription": "Enter all 5 indicator values to sort by similarity:",
+      "typeDescription": "Select a Type to filter all matches:",
       "typeLabel": "Specify Type",
-      "typePlaceholder": "--- Please Select ---",
+      "typePlaceholder": "--- Select ---",
       "submit": "Search",
-      "clear": "Clear All Search",
-      "fillAllFields": "Please fill in all 5 feature values.",
+      "clear": "Clear Search",
+      "fillAllFields": "Please fill in all 5 indicator values.",
       "selectType": "Please select a specific Type."
     },
     "table": {
       "searchPlaceholder": "Search...",
       "sortTooltip": "Click to sort",
       "pagination": {
-        "showing": "Showing {{start}} to {{end}} of {{total}} records"
+        "showing": "Showing {{start}} to {{end}} of {{total}} entries"
       }
     },
     "loading": "Loading data..."

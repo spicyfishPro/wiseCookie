@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 
@@ -8,31 +8,29 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">
-        <span style={{ fontSize: '1.8rem' }}>🍪</span>
-        {t('navbar.brand')}
-      </Link>
-      <div className="navbar-center">
-        <ul className="navbar-nav">
-          <li>
-            <Link
-              to="/predict"
-              className={({ isActive }) => `navbar-link ${isActive ? 'active' : ''}`}
-            >
-              {t('navbar.predict')}
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/table"
-              className={({ isActive }) => `navbar-link ${isActive ? 'active' : ''}`}
-            >
-              {t('navbar.table')}
-            </Link>
-          </li>
-        </ul>
+      <div className="navbar-left">
+        <Link to="/" className="navbar-brand">
+          <span className="navbar-logo">🍪</span>
+          <span className="navbar-title">{t('navbar.brand')}</span>
+        </Link>
+        <div className="navbar-nav">
+          <NavLink
+            to="/predict"
+            className={({ isActive }) => `navbar-link ${isActive ? 'active' : ''}`}
+          >
+            {t('navbar.predict')}
+          </NavLink>
+          <NavLink
+            to="/table"
+            className={({ isActive }) => `navbar-link ${isActive ? 'active' : ''}`}
+          >
+            {t('navbar.table')}
+          </NavLink>
+        </div>
       </div>
-      <LanguageSelector />
+      <div className="navbar-right">
+        <LanguageSelector />
+      </div>
     </nav>
   );
 }

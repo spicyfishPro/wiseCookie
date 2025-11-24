@@ -7,63 +7,23 @@ const LanguageSelector = () => {
   const currentLanguage = i18n.language;
   const isChinese = currentLanguage === 'zh-CN';
 
-  const toggleLanguage = () => {
-    const newLanguage = isChinese ? 'en-US' : 'zh-CN';
-    i18n.changeLanguage(newLanguage);
-  };
-
-  const buttonStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '8px 16px',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
-    borderRadius: '20px',
-    color: '#fff',
-    cursor: 'pointer',
-    fontSize: '14px',
-    fontWeight: '500',
-    transition: 'all 0.3s ease',
-    textDecoration: 'none'
-  };
-
-  const activeStyle = {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    transform: 'scale(1.05)'
-  };
-
   return (
-    <div className="language-selector"
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '4px',
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-        borderRadius: '22px',
-        padding: '4px'
-      }}
-    >
+    <div className="language-selector">
       <button
         onClick={() => i18n.changeLanguage('zh-CN')}
-        style={{
-          ...buttonStyle,
-          ...(isChinese ? activeStyle : {})
-        }}
+        className={`lang-btn ${isChinese ? 'active' : ''}`}
         title="切换到中文"
       >
-        🇨🇳 {t('common.language.chinese')}
+        <span>🇨🇳</span>
+        <span>{t('common.language.chinese')}</span>
       </button>
       <button
         onClick={() => i18n.changeLanguage('en-US')}
-        style={{
-          ...buttonStyle,
-          ...(!isChinese ? activeStyle : {})
-        }}
+        className={`lang-btn ${!isChinese ? 'active' : ''}`}
         title="Switch to English"
       >
-        🇺🇸 {t('common.language.english')}
+        <span>🇺🇸</span>
+        <span>{t('common.language.english')}</span>
       </button>
     </div>
   );
