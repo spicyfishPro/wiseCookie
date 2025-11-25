@@ -39,6 +39,11 @@
       "error": "无法从后端加载特征列表。",
       "predictionFailed": "预测失败，请检查输入。",
       "errorTitle": "错误:"
+    },
+    "features": {
+      "proteinContent": "蛋白质含量 (%)",
+      "hardness": "籽粒硬度",
+      "glutenContent": "面筋含量(%)"
     }
   },
   "predictResult": {

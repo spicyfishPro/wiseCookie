@@ -12,7 +12,7 @@
       "title": "Features",
       "predict": {
         "title": "Model Prediction",
-        "description": "Input grain traits like gluten content, protein content, and grain hardness to get a comprehensive digital cookie score based on ML models.",
+        "description": "Input grain traits like gluten content, protein content, and grain hardness to get a comprehensive digital score based on ML models.",
         "link": "Start Prediction"
       },
       "table": {
@@ -28,7 +28,7 @@
     }
   },
   "predict": {
-    "title": "Predict Cookie Score using Grain Traits",
+    "title": "Predict Digital Score using Grain Traits",
     "subtitle": "Please enter the values for Grain Protein Content, Grain Hardness, and Grain Gluten Content below",
     "form": {
       "loading": "Loading model configuration...",
@@ -49,7 +49,7 @@
   "predictResult": {
     "loading": "Calculating prediction result...",
     "empty": "Prediction result will be here",
-    "title": "Predicted Cookie Score",
+    "title": "Predicted Digital Score",
     "basedOn": "Based on the features you entered"
   },
   "table": {
