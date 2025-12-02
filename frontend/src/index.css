@@ -6,6 +6,18 @@
 }
 
 :root {
+  /* Font Size Variables - 增加基础字号 */
+  --font-size-base: 18px;      /* 原来是 16px，增加到 18px */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-md: 1rem;         /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+
   /* Modern Color Palette - 更现代的配色 */
   --primary-color: #3b82f6;
   --primary-dark: #2563eb;
@@ -20,7 +32,7 @@
   --bg-secondary: #f8fafc;
   --bg-tertiary: #f1f5f9;
   --bg-card: #ffffff;
-  
+
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-light: #94a3b8;
@@ -50,6 +62,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  font-size: var(--font-size-base); /* 增加基础字号从 16px 到 18px */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg-secondary);
@@ -87,7 +100,7 @@ a:hover {
   padding: 12px 24px;
   border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: var(--font-size-md); /* 从 0.95rem 增加到 1rem (16px) */
   font-weight: 500;
   transition: var(--transition);
   box-shadow: var(--shadow-xs);
@@ -147,7 +160,7 @@ textarea {
   box-sizing: border-box;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  font-size: 0.95rem;
+  font-size: var(--font-size-md); /* 从 0.95rem 增加到 1rem (16px) */
   transition: var(--transition);
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -174,7 +187,7 @@ input::placeholder {
   color: var(--text-primary);
   margin-bottom: 6px;
   display: block;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm); /* 从 0.9rem 增加到 0.875rem (14px) */
 }
 
 .form-group {
@@ -202,7 +215,7 @@ input::placeholder {
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   font-weight: 600;
   color: var(--text-primary);
-  font-size: 1.05rem;
+  font-size: var(--font-size-lg); /* 从 1.05rem 增加到 1.125rem (18px) */
 }
 
 .card-body {
@@ -234,7 +247,7 @@ input::placeholder {
 }
 
 .feature-card-title {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl); /* 保持 1.25rem (20px) */
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 12px;
@@ -251,7 +264,7 @@ input::placeholder {
   align-items: center;
   color: var(--primary-color);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: var(--font-size-md); /* 从 0.95rem 增加到 1rem (16px) */
   transition: var(--transition-fast);
 }
 
@@ -266,7 +279,7 @@ input::placeholder {
 
 /* Section Headers */
 .section-title {
-  font-size: 1.875rem;
+  font-size: var(--font-size-3xl); /* 保持 1.875rem (30px) */
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 32px;
@@ -296,7 +309,7 @@ input::placeholder {
 }
 
 .page-title {
-  font-size: 2.5rem;
+  font-size: var(--font-size-4xl); /* 从 2.5rem 减少到 2.25rem (36px) */
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 16px;
@@ -304,7 +317,7 @@ input::placeholder {
 }
 
 .page-subtitle {
-  font-size: 1.125rem;
+  font-size: var(--font-size-lg); /* 保持 1.125rem (18px) */
   color: var(--text-secondary);
   margin-bottom: 24px;
   max-width: 600px;
@@ -313,7 +326,7 @@ input::placeholder {
 }
 
 .page-icon {
-  font-size: 4rem;
+  font-size: var(--font-size-5xl); /* 从 4rem 减少到 3rem (48px) */
   display: inline-block;
   margin-bottom: 16px;
   animation: float 3s ease-in-out infinite;
@@ -392,14 +405,14 @@ input::placeholder {
 }
 
 .prediction-result-title {
-  font-size: 1rem;
+  font-size: var(--font-size-md); /* 保持 1rem (16px) */
   color: var(--text-secondary);
   margin-bottom: 12px;
   font-weight: 500;
 }
 
 .prediction-result-value {
-  font-size: 3rem;
+  font-size: var(--font-size-5xl); /* 从 3rem 增加到 3rem (48px) */
   font-weight: 800;
   color: var(--primary-color);
   line-height: 1;
@@ -407,7 +420,7 @@ input::placeholder {
 }
 
 .prediction-result-label {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm); /* 保持 0.875rem (14px) */
   color: var(--text-secondary);
 }
 
@@ -493,7 +506,7 @@ input::placeholder {
 
 /* Brand Styles */
 .navbar-brand {
-  font-size: 1.5rem;
+  font-size: var(--font-size-2xl); /* 保持 1.5rem (24px) */
   font-weight: 700;
   color: var(--text-primary);
   text-decoration: none;
@@ -508,7 +521,7 @@ input::placeholder {
 }
 
 .navbar-logo {
-  font-size: 2rem;
+  font-size: var(--font-size-3xl); /* 从 2rem 减少到 1.875rem (30px) */
   display: block;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
   transition: var(--transition);
@@ -542,7 +555,7 @@ input::placeholder {
   border-radius: var(--radius-md); /* 圆角矩形 */
   transition: var(--transition);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: var(--font-size-md); /* 从 0.95rem 增加到 1rem (16px) */
   border: 1px solid transparent;
   position: relative;
   display: inline-flex;
@@ -625,7 +638,7 @@ input::placeholder {
   border-radius: var(--radius-full);
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: var(--font-size-xs); /* 从 0.85rem 增加到 0.75rem (12px) */
   font-weight: 500;
   transition: color 0.3s ease;
   white-space: nowrap;
@@ -679,12 +692,13 @@ input::placeholder {
 
   .navbar-link {
     padding: 6px 12px;
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm); /* 从 0.85rem 增加到 0.875rem (14px) */
   }
 
   /* 简化语言切换器 */
   .lang-btn {
     padding: 6px 10px;
+    font-size: var(--font-size-xs); /* 保持 0.75rem (12px) */
   }
   
   .lang-btn span:not(:first-child) {
@@ -751,7 +765,7 @@ input::placeholder {
 }
 
 .search-section-title {
-  font-size: 1.125rem;
+  font-size: var(--font-size-lg); /* 保持 1.125rem (18px) */
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 20px;
@@ -761,7 +775,7 @@ input::placeholder {
 .match-score {
   font-weight: 600;
   color: var(--primary-color);
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm); /* 从 0.9rem 增加到 0.875rem (14px) */
 }
 
 .match-score-na {

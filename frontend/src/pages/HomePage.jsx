@@ -56,7 +56,7 @@ function HomePage() {
       >
         <h3
           style={{
-            fontSize: '1.25rem',
+            fontSize: 'var(--font-size-xl)',
             fontWeight: '700',
             color: 'var(--text-primary)',
             marginBottom: '12px',

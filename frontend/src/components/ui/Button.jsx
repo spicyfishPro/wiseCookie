@@ -13,7 +13,7 @@ const Button = ({
   const baseStyle = {
     padding: size === 'sm' ? '8px 16px' : '12px 24px',
     borderRadius: '8px',
-    fontSize: size === 'sm' ? '0.875rem' : '0.95rem',
+    fontSize: size === 'sm' ? 'var(--font-size-sm)' : 'var(--font-size-md)',
     fontWeight: 500,
     cursor: disabled ? 'not-allowed' : 'pointer',
     transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',

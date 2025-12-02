@@ -381,7 +381,7 @@ function InteractiveTable() {
 
       {/* 分页 */}
       <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+        <div style={{ color: 'var(--text-secondary)', fontSize: 'var(--font-size-sm)' }}>
           {t('table.table.pagination.showing', {
             start: table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1,
             end: Math.min(

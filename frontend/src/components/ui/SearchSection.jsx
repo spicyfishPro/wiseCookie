@@ -17,7 +17,7 @@ const SearchSection = ({ children, title, style, ...props }) => {
       {title && (
         <h3
           style={{
-            fontSize: '1.125rem',
+            fontSize: 'var(--font-size-lg)',
             fontWeight: 600,
             color: 'var(--text-primary)',
             marginBottom: '20px',

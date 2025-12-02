@@ -20,7 +20,7 @@ const Input = ({
             color: 'var(--text-primary)',
             marginBottom: '6px',
             display: 'block',
-            fontSize: '0.9rem',
+            fontSize: 'var(--font-size-sm)',
           }}
         >
           {label}
@@ -38,7 +38,7 @@ const Input = ({
           boxSizing: 'border-box',
           border: error ? '1px solid #ef4444' : '1px solid var(--border-color)',
           borderRadius: '8px',
-          fontSize: '0.95rem',
+          fontSize: 'var(--font-size-md)',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           backgroundColor: 'var(--bg-primary)',
           color: 'var(--text-primary)',
@@ -60,7 +60,7 @@ const Input = ({
         <span
           style={{
             color: '#ef4444',
-            fontSize: '0.875rem',
+            fontSize: 'var(--font-size-sm)',
             marginTop: '4px',
             display: 'block',
           }}

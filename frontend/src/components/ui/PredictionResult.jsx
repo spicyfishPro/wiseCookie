@@ -30,7 +30,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
             marginBottom: '16px',
           }}
         ></div>
-        <p style={{ color: 'var(--text-secondary)', margin: 0 }}>{t('predictResult.loading')}</p>
+        <p style={{ color: 'var(--text-secondary)', margin: 0, fontSize: 'var(--font-size-md)' }}>{t('predictResult.loading')}</p>
       </div>
     );
   }
@@ -51,7 +51,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
           justifyContent: 'center',
         }}
       >
-        <p style={{ margin: 0, fontSize: '1rem' }}>{t('predictResult.empty')}</p>
+        <p style={{ margin: 0, fontSize: 'var(--font-size-md)' }}>{t('predictResult.empty')}</p>
       </div>
     );
   }
@@ -74,7 +74,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
       >
         <h3
           style={{
-            fontSize: '1rem',
+            fontSize: 'var(--font-size-md)',
             color: 'var(--text-secondary)',
             margin: '0 0 12px 0',
             fontWeight: 500,
@@ -84,7 +84,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
         </h3>
         <div
           style={{
-            fontSize: '3rem',
+            fontSize: 'var(--font-size-5xl)',
             fontWeight: 800,
             color: 'var(--primary-color)',
             lineHeight: 1,
@@ -93,7 +93,7 @@ const PredictionResult = ({ prediction, loading, empty }) => {
         >
           {prediction.toFixed(2)}
         </div>
-        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+        <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: 'var(--font-size-sm)' }}>
           {t('predictResult.basedOn')}
         </p>
       </div>
